@@ -29,8 +29,8 @@ class App extends Component {
 
     this.state = {
       list,
-      greetings: 'Hello World!',
-      searchTerm: ''
+      searchTerm: '',
+      greetings: 'Hello World!'
     };
 
     this.onSearchChange = this.onSearchChange.bind(this);
@@ -47,6 +47,8 @@ class App extends Component {
   }
 
   render() {
+    const { list, searchTerm } = this.state;
+
     return (
       <div className="App">
         <h1>{this.state.greetings}</h1>
@@ -60,7 +62,7 @@ class App extends Component {
         <hr />
 
         {
-          this.state.list.filter(isSearched(this.state.searchTerm)).map( item => 
+          list.filter(isSearched(searchTerm)).map( item => 
             <div key={item.objectID}>
               <a href={item.url}>{item.title}</a>
               <span>{item.author}</span>
