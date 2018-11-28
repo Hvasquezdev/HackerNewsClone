@@ -56,7 +56,11 @@ class App extends Component {
         <hr />
 
         <form>
-          <input type="text" onChange={this.onSearchChange} />
+          <input 
+            type="text" 
+            onChange={this.onSearchChange} 
+            value={searchTerm}  
+          />
         </form>
 
         <hr />
