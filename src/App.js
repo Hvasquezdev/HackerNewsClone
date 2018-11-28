@@ -55,18 +55,45 @@ class App extends Component {
 
         <hr />
 
-        <form>
-          <input 
-            type="text" 
-            onChange={this.onSearchChange} 
-            value={searchTerm}  
-          />
-        </form>
+        <Search 
+          onChange={this.onSearchChange}
+          value={searchTerm}
+        />
 
         <hr />
 
+        <Table 
+          list={list}
+          pattern={searchTerm}
+          onDimiss={this.onDimiss}
+        />
+      </div>
+    );
+  }
+}
+
+class Search extends Component {
+  render () {
+    const { value, onChange} = this.props;
+    return (
+      <form>
+        <input 
+          type="text" 
+          onChange={onChange} 
+          value={value}  
+        />
+      </form>      
+    );
+  }
+}
+
+class Table extends Component {
+  render () {
+    const { list, pattern, onDimiss} = this.props;
+    return (
+      <div>
         {
-          list.filter(isSearched(searchTerm)).map( item => 
+          list.filter(isSearched(pattern)).map( item => 
             <div key={item.objectID}>
               <a href={item.url}>{item.title}</a>
               <span>{item.author}</span>
@@ -74,7 +101,7 @@ class App extends Component {
               <span>{item.points}</span>
               <span>
                 <button
-                  onClick={() => this.onDimiss(item.objectID)}
+                  onClick={() => onDimiss(item.objectID)}
                   type="button"
                 >
                   Dimiss
