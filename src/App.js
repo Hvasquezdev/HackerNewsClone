@@ -50,31 +50,33 @@ class App extends Component {
     const { list, searchTerm } = this.state;
 
     return (
-      <div className="App">
-        <h1>{this.state.greetings}</h1>
+      <div className="page">
+        <div className="interactions">
+          <h1>{this.state.greetings}</h1>
 
-        <hr />
+          <hr />
 
-        <Search 
-          onChange={this.onSearchChange}
-          value={searchTerm}
-        >
-          Search
-        </Search>
+          <Search 
+            onChange={this.onSearchChange}
+            value={searchTerm}
+          >
+            Search
+          </Search>
 
-        <hr />
+          <hr />
 
-        <Table 
-          list={list}
-          pattern={searchTerm}
-          onDimiss={this.onDimiss}
-        />
+          <Table 
+            list={list}
+            pattern={searchTerm}
+            onDimiss={this.onDimiss}
+          />
+        </div>
       </div>
     );
   }
 }
 
-function Search ({ value, onChange, children}) {
+const Search = ({ value, onChange, children}) => {
   return (
     <form>
       {children} <input 
@@ -86,51 +88,53 @@ function Search ({ value, onChange, children}) {
   );
 }
 
-class Table extends Component {
-  render () {
-    const { list, pattern, onDimiss} = this.props;
-    return (
-      <div>
-        {
-          list.filter(isSearched(pattern)).map( item => 
-            <div key={item.objectID}>
+const Table = ({ list, pattern, onDimiss}) => {
+  const largeColumn = { width: '40%' };
+  const midColumn = { width: '30%' };
+  const smallColumn = { width: '10%' };
+  return (
+    <div className="table">
+      {
+        list.filter(isSearched(pattern)).map( item => 
+          <div key={item.objectID} className="table-row">
+            <span style={largeColumn}>
               <a href={item.url}>{item.title}</a>
-              <span>{item.author}</span>
-              <span>{item.num_comments}</span>
-              <span>{item.points}</span>
-              <span>
-                <Button
-                  onClick={() => onDimiss(item.objectID)}
-                  type="button"
-                >
-                  Dimiss
-                </Button>
-              </span>
-            </div>
-          )
-        }
-      </div>
-    );
-  }
+            </span>
+            <span style={midColumn}>
+              {item.author}
+            </span>
+            <span style={smallColumn}>
+              {item.num_comments}
+            </span>
+            <span style={smallColumn}>
+              {item.points}
+            </span>
+            <span style={smallColumn}>
+              <Button
+                onClick={() => onDimiss(item.objectID)}
+                type="button"
+                className="button-inline"
+              >
+                Dimiss
+              </Button>
+            </span>
+          </div>
+        )
+      }
+    </div>
+  );
 }
 
-class Button extends Component {
-  render () {
-    const {
-      onClick,
-      className = '',
-      children
-    } = this.props;
-
-    return (
-      <button
-        onClick={onClick}
-        className={className}
-        type="button"
-      >
-        {children}
-      </button>
-    );
-  }
+const Button = ({ onClick, className, children }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={className}
+      type="button"
+    >
+      {children}
+    </button>
+  );
 }
+
 export default App;
