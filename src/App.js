@@ -35,8 +35,12 @@ class App extends Component {
   }
 
   onDimiss(id) {
-    const updatedList = this.state.list.filter(item => item.objectID !== id);
-    this.setState({list: updatedList});
+    const updatedHist = this.state.result.hits.filter(item => item.objectID !== id);
+    this.setState(
+      {
+        result: { ...this.state.result, hits: updatedHist }
+      }
+    );
   }
 
   componentDidMount() {
