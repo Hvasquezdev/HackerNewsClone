@@ -73,11 +73,13 @@ class App extends Component {
 
           <hr />
 
-          <Table 
-            list={result.hits}
-            pattern={searchTerm}
-            onDimiss={this.onDimiss}
-          />
+          { result &&
+            <Table 
+              list={result.hits}
+              pattern={searchTerm}
+              onDismiss={this.onDismiss}
+            />
+          }
         </div>
       </div>
     );
