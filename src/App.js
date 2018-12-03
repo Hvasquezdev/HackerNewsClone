@@ -23,7 +23,7 @@ class App extends Component {
 
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
-    this.onDimiss = this.onDimiss.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   setSearchTopStories(result) {
@@ -34,7 +34,7 @@ class App extends Component {
     this.setState({searchTerm: event.target.value})
   }
 
-  onDimiss(id) {
+  onDismiss(id) {
     const updatedHist = this.state.result.hits.filter(item => item.objectID !== id);
     this.setState(
       {
@@ -96,7 +96,7 @@ const Search = ({ value, onChange, children}) => {
   );
 }
 
-const Table = ({ list, pattern, onDimiss}) => {
+const Table = ({ list, pattern, onDismiss}) => {
   const largeColumn = { width: '40%' };
   const midColumn = { width: '30%' };
   const smallColumn = { width: '10%' };
@@ -119,11 +119,11 @@ const Table = ({ list, pattern, onDimiss}) => {
             </span>
             <span style={smallColumn}>
               <Button
-                onClick={() => onDimiss(item.objectID)}
+                onClick={() => onDismiss(item.objectID)}
                 type="button"
                 className="button-inline"
               >
-                Dimiss
+                Dismiss
               </Button>
             </span>
           </div>
