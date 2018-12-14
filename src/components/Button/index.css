@@ -1,0 +1,16 @@
+.button-inline {
+  border-width: 0;
+  background: transparent;
+  color: inherit;
+  text-align: inherit;
+  -webkit-font-smoothing: inherit;
+  padding: 5px 10px;
+  font-size: inherit;
+  cursor: pointer;
+  border: 1px solid red;
+}
+
+.button-active {
+  border-radius: 0;
+  border-bottom: 1px solid #38BB6C;
+}
