@@ -17,6 +17,8 @@ import {
 
 const URL = `${PATH_BASE}${PATH_SEARCH}${PARAM_SEARCH}`;
 
+const Loading = () => <div>Loading...</div>;
+
 class App extends Component {
   _isMounted = false;
 
@@ -28,7 +30,8 @@ class App extends Component {
       searchTerm: DEFAULT_QUERY,
       searchKey: '',
       error: null,
-      greetings: 'Hello World!'
+      greetings: 'Hacker News Clone',
+      isLoading: false
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -61,11 +64,14 @@ class App extends Component {
           hits: updateHits,
           page
         }
-      }
+      },
+      isLoading: false
     });
   }
 
   fetchSearchTopStories(searchTerm, page = 0) {
+    this.setState({ isLoading: true });
+
     axios(`${URL}${searchTerm}${PARAM_PAGE}${page}${PARAM_HPP}${DEFAULT_HPP}`)
       .then(result => this._isMounted && this.setSearchTopStories(result.data))
       .catch(error => this._isMounted && this.setState({error}));
@@ -116,7 +122,7 @@ class App extends Component {
   }
 
   render() {
-    const {searchTerm, results, searchKey, error} = this.state;
+    const {searchTerm, results, searchKey, error, isLoading} = this.state;
     const page = (results && results[searchKey] && results[searchKey].page) || 0;
     const list = (results && results[searchKey] && results[searchKey].hits) || [];
 
@@ -151,11 +157,15 @@ class App extends Component {
               />
           }
 
-          <div className="interactions">
-            <button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-              More
-            </button>
-          </div>
+          { isLoading
+            ? <Loading />
+
+            : <div className="interactions">
+                <button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+                  More
+                </button>
+              </div>
+          }
         </div>
       </div>
     );
