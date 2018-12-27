@@ -18,6 +18,11 @@ import {
 const URL = `${PATH_BASE}${PATH_SEARCH}${PARAM_SEARCH}`;
 
 const Loading = () => <div>Loading...</div>;
+const ButtonWithLoading = ({ isLoading, ...rest }) =>
+  isLoading
+    ? <Loading />
+    : <button { ...rest } />
+
 
 class App extends Component {
   _isMounted = false;
@@ -157,15 +162,11 @@ class App extends Component {
               />
           }
 
-          { isLoading
-            ? <Loading />
-
-            : <div className="interactions">
-                <button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-                  More
-                </button>
-              </div>
-          }
+          <div className="interactions">
+            <ButtonWithLoading isLoading={isLoading} onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+              More
+            </ButtonWithLoading>
+          </div>
         </div>
       </div>
     );
