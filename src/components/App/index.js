@@ -16,13 +16,11 @@ import {
 } from '../../constants';
 
 const URL = `${PATH_BASE}${PATH_SEARCH}${PARAM_SEARCH}`;
-
 const Loading = () => <div>Loading...</div>;
-const ButtonWithLoading = ({ isLoading, ...rest }) =>
-  isLoading
-    ? <Loading />
-    : <button { ...rest } />
-
+const ButtonWithLoading = ({ isLoading, ...rest }) => 
+  isLoading 
+    ? <Loading /> 
+    : <button { ...rest } />      
 
 class App extends Component {
   _isMounted = false;
@@ -36,7 +34,8 @@ class App extends Component {
       searchKey: '',
       error: null,
       greetings: 'Hacker News Clone',
-      isLoading: false
+      isLoading: false,
+      sortKey: 'NONE'
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -45,6 +44,7 @@ class App extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSort = this.onSort.bind(this);
   }
 
   needsToSearchTopStories(searchTerm) {
@@ -114,6 +114,14 @@ class App extends Component {
     );
   }
 
+  onSort(sortKey) {
+    if(sortKey === this.state.sortKey) {
+      this.setState({ sortKey: 'NONE' });
+    } else {
+      this.setState({ sortKey });
+    }
+  }
+
   componentDidMount() {
     this._isMounted = true;
 
@@ -127,7 +135,7 @@ class App extends Component {
   }
 
   render() {
-    const {searchTerm, results, searchKey, error, isLoading} = this.state;
+    const {searchTerm, results, searchKey, error, isLoading, sortKey} = this.state;
     const page = (results && results[searchKey] && results[searchKey].page) || 0;
     const list = (results && results[searchKey] && results[searchKey].hits) || [];
 
@@ -136,14 +144,14 @@ class App extends Component {
     return (
       <div className="page">
         <div className="interactions">
-          <h1>{this.state.greetings}</h1>
+          <h1>{ this.state.greetings }</h1>
 
           <hr />
 
           <Search 
-            onChange={this.onSearchChange}
-            onSubmit={this.onSearchSubmit}
-            value={searchTerm}
+            onChange={ this.onSearchChange }
+            onSubmit={ this.onSearchSubmit }
+            value={ searchTerm }
           >
             Search
           </Search>
@@ -156,14 +164,16 @@ class App extends Component {
               </div>
             
             : <Table 
-                list={list}
-                pattern={searchTerm}
-                onDismiss={this.onDismiss}
+                list={ list }
+                sortKey={ sortKey }
+                onSort={ this.onSort }
+                pattern={ searchTerm }
+                onDismiss={ this.onDismiss }
               />
           }
 
           <div className="interactions">
-            <ButtonWithLoading isLoading={isLoading} onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+            <ButtonWithLoading isLoading={ isLoading } onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
               More
             </ButtonWithLoading>
           </div>

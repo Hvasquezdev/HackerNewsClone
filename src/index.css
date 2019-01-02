@@ -28,15 +28,15 @@ input {
 
 button {
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px solid #dddddd;
   background: transparent;
-  color: #808080;
+  color: inherit !important;
   cursor: pointer;
 }
 
 button:hover {
-  color: red;
+  color: #808080;
 }
 
 *:focus {
