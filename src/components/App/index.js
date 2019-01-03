@@ -34,8 +34,7 @@ class App extends Component {
       searchKey: '',
       error: null,
       greetings: 'Hacker News Clone',
-      isLoading: false,
-      sortKey: 'NONE'
+      isLoading: false
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -44,7 +43,6 @@ class App extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
-    this.onSort = this.onSort.bind(this);
   }
 
   needsToSearchTopStories(searchTerm) {
@@ -114,14 +112,6 @@ class App extends Component {
     );
   }
 
-  onSort(sortKey) {
-    if(sortKey === this.state.sortKey) {
-      this.setState({ sortKey: 'NONE' });
-    } else {
-      this.setState({ sortKey });
-    }
-  }
-
   componentDidMount() {
     this._isMounted = true;
 
@@ -135,7 +125,7 @@ class App extends Component {
   }
 
   render() {
-    const {searchTerm, results, searchKey, error, isLoading, sortKey} = this.state;
+    const {searchTerm, results, searchKey, error, isLoading} = this.state;
     const page = (results && results[searchKey] && results[searchKey].page) || 0;
     const list = (results && results[searchKey] && results[searchKey].hits) || [];
 
@@ -165,8 +155,6 @@ class App extends Component {
             
             : <Table 
                 list={ list }
-                sortKey={ sortKey }
-                onSort={ this.onSort }
                 pattern={ searchTerm }
                 onDismiss={ this.onDismiss }
               />
