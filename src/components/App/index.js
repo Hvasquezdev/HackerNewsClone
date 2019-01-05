@@ -16,11 +16,11 @@ import {
 } from '../../constants';
 
 const URL = `${PATH_BASE}${PATH_SEARCH}${PARAM_SEARCH}`;
-const Loading = () => <div>Loading...</div>;
+const Loading = () => <button className="button is-success is-loading" disabled>Loading</button>;
 const ButtonWithLoading = ({ isLoading, ...rest }) => 
   isLoading 
     ? <Loading /> 
-    : <button { ...rest } />      
+    : <button className="button is-success" { ...rest } />      
 
 const updateSearchTopStoriesState = (hits, page) => (prevState) => {
   const { searchKey, results } = prevState;
@@ -132,24 +132,19 @@ class App extends Component {
     if(!results) { return null; }
 
     return (
-      <div className="page">
-        <div className="interactions">
-          <h1>{ this.state.greetings }</h1>
-
-          <hr />
+      <div className="container is-fluid">
+        <div className="has-text-centered">
+          <h1 className="title">{ this.state.greetings }</h1>
 
           <Search 
             onChange={ this.onSearchChange }
             onSubmit={ this.onSearchSubmit }
             value={ searchTerm }
           >
-            Search
           </Search>
 
-          <hr />
-
           { error 
-            ? <div className="interactions">
+            ? <div className="has-text-centered">
                 <p>Something went wrong.</p>
               </div>
             
@@ -160,7 +155,7 @@ class App extends Component {
               />
           }
 
-          <div className="interactions">
+          <div className="has-text-centered">
             <ButtonWithLoading isLoading={ isLoading } onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
               More
             </ButtonWithLoading>

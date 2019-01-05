@@ -1,4 +1,4 @@
-export const DEFAULT_QUERY = 'redux';
+export const DEFAULT_QUERY = 'JavaScript';
 export const DEFAULT_HPP = '15';
 export const PATH_BASE = 'http://hn.algolia.com/api/v1';
 export const PATH_SEARCH = '/search';

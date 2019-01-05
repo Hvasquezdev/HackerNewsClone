@@ -1,8 +1,5 @@
-.searchButton {
-  border: 1px solid #38BB6C;
-  color: #38BB6C;
-}
-
-.searchButton:hover {
-  color: rgb(40, 139, 80);
+form {
+  display: flex;
+  justify-content: center;
+  padding: 25px 0;
 }

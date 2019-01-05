@@ -1,7 +1,4 @@
-.page {
-  margin: 20px;
-}
-
-.interactions {
-  text-align: center;
+.container {
+  margin-top: 25px;
+  margin-bottom: 25px;
 }

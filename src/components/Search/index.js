@@ -13,24 +13,28 @@ class Search extends Component {
     const {
       value,
       onChange,
-      onSubmit,
-      children
+      onSubmit
     } = this.props;
 
     return (
-      <form onSubmit={ onSubmit }>
-        { children } <input 
-          type="text" 
-          onChange={ onChange } 
-          value={ value }  
-          ref={ el => this.input = el }
-        />
-        <button 
-          type="submit"
-          className="searchButton"
-        >
-          { children }
-        </button>
+      <form onSubmit={ onSubmit }>      
+        <div className="field has-addons">
+          <div className="control">
+            <input 
+              className="input is-success" 
+              type="text" 
+              onChange={ onChange } 
+              value={ value }  
+              ref={ el => this.input = el }
+              placeholder="Find a topic"
+            ></input>
+          </div>
+          <div className="control">
+            <button className="button is-success">
+              Search
+            </button>
+          </div>
+        </div>
       </form>    
     );
   }
